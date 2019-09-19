@@ -9,8 +9,8 @@
       <div class="zh-userInfo-name">Ragnar</div>
       <div class="zh-userInfo-github"></div>
       <div class="zh-project-intro">
-        技术栈：Vue / Element
-        <br />项目周期：一周 <br />信息来源:知乎官方 <br />API:自己托管
+        技术栈：Vue / Element /axios
+        <br />项目周期：4天 <br />信息来源:知乎官方 <br />API:模拟数据
       </div>
     </div>
     <div class="zh-asider-project">
@@ -87,10 +87,23 @@ export default {
     border-bottom: 1px solid #eee;
     .zh-userInfo-img {
       text-align: center;
+      position: relative;
       img {
         width: 80px;
         height: 80px;
         padding: 20px;
+        animation: spin 3s ease infinite;
+      }
+      &::before {
+        position: absolute;
+        display: inline-block;
+        content: "";
+        bottom: 16px;
+        right: 60px;
+        height: 16px;
+        width: 16px;
+        background: url("~@/assets/jiantou.png") no-repeat;
+        background-size: 100%;
       }
     }
     .zh-userInfo-name {
@@ -134,6 +147,13 @@ export default {
         }
       }
     }
+  }
+}
+
+@keyframes spin {
+  50%,
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>

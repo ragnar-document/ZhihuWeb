@@ -8,5 +8,5 @@ module.exports = {
       }
     }
   },
-  publicPath: process.env.NODE_ENV === "production" ? "/ZhihuWeb/" : "/"
+  publicPath: process.env.NODE_ENV === "production" ? "/zhihuwebs" : "/"
 };

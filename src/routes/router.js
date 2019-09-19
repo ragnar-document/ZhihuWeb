@@ -16,23 +16,27 @@ export default [
       {
         path: "/home",
         name: "Home",
-        component: Home
+        component: Home,
+        title: "主页"
       },
       {
         path: "/zhihu/find",
         name: "Find",
-        component: Find
+        component: Find,
+        title: "发现"
       },
       {
         path: "/zhihu/specials",
         name: "Specials",
-        component: Specials
+        component: Specials,
+        title: "热榜"
       }
     ]
   },
   {
     path: "/zhihu/zhuanlan",
     name: "Zhuanlan",
-    component: Zhuanlan
+    component: Zhuanlan,
+    title: "专栏"
   }
 ];

@@ -19,7 +19,6 @@ export default {
   },
 
   get: function(url, params = {}, config) {
-    console.log(config);
     let OPTIONS = Object.assign({ params }, config);
     return axios.get(url, OPTIONS);
   },

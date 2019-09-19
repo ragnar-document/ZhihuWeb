@@ -3,8 +3,8 @@
     <el-container>
       <el-main class="zh-specials-main">
         <div class="zh-main-tabs">
-          <router-link to="/">推荐</router-link>
-          <router-link to="/">热榜</router-link>
+          <router-link :to="{ name: 'Home' }">推荐</router-link>
+          <router-link :to="{ name: 'Specials' }">热榜</router-link>
         </div>
         <div class="zh-specials-hotlist">
           <el-button
@@ -67,7 +67,6 @@ export default {
       Serve.hostLists(params).then(res => {
         this.specialsData = res.data;
         this.loading = false;
-        console.log(res.data);
       });
     },
     childNavBtn(e) {

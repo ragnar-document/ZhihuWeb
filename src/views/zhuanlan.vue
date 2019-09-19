@@ -11,34 +11,23 @@
       <div class="zh-zhuanlan-cardList">
         <div class="zh-cardList-title">专栏·发现</div>
         <div class="zh-cardlist">
-          <div class="zh-cardlist-item">
-            <img src alt />
-            <div class="zh-cardItem-name">name</div>
-            <div class="zh-cardItem-intro">12312312</div>
-            <div class="zh-cardItem-mes">关注</div>
-            <a class="zh-greenbtn" href="javascript:;">进入专栏</a>
-          </div>
-          <div class="zh-cardlist-item">
-            <img src alt />
-            <div class="zh-cardItem-name">name</div>
-            <div class="zh-cardItem-intro">12312312</div>
-            <div class="zh-cardItem-mes">关注</div>
-            <a class="zh-greenbtn" href="javascript:;">进入专栏</a>
-          </div>
-          <div class="zh-cardlist-item">
-            <img src alt />
-            <div class="zh-cardItem-name">name</div>
-            <div class="zh-cardItem-intro">12312312</div>
-            <div class="zh-cardItem-mes">关注</div>
-            <a class="zh-greenbtn" href="javascript:;">进入专栏</a>
-          </div>
-          <div class="zh-cardlist-item">
-            <img src alt />
-            <div class="zh-cardItem-name">name</div>
-            <div class="zh-cardItem-intro">12312312</div>
-            <div class="zh-cardItem-mes">关注</div>
-            <a class="zh-greenbtn" href="javascript:;">进入专栏</a>
-          </div>
+          <zh-card :datas="zhuanlanData" />
+        </div>
+        <div style="text-align:center;margin-top:20px;">
+          <a class="zh-rate-btn" href="javascript:;" @click="rateBtn">
+            <span>
+              <img src="@/assets/shuaxin.png" />
+            </span>
+            换一换
+          </a>
+        </div>
+      </div>
+      <div class="zh-zhuanlan-footer">
+        <h3 class="zh-zhuanlan-footer-title">在知乎创作</h3>
+        <a class="zh-gray-btn" href="javascript:;">申请专栏</a>
+        <div class="zh-zhuanlan-footer-list">
+          © 2019 知乎 · 知乎专栏 · 知乎圆桌·发现 · 移动应用 · 使用机构帐号登录 ·
+          联系我们 · 来知乎工作
         </div>
       </div>
     </div>
@@ -47,10 +36,15 @@
 
 <script>
 import zhHeader from "./../components/_zh-header";
+import zhUserCard from "./../components/_zh-userCard";
 import Server from "../global/request";
 export default {
   data() {
-    return {};
+    return {
+      Data: [],
+      zhuanlanData: [],
+      index: 1
+    };
   },
   created() {
     this.render();
@@ -58,12 +52,31 @@ export default {
   methods: {
     render() {
       Server.zhuanlanCard().then(res => {
-        console.log(res.data);
+        this.Data = res.data;
+        let data = [];
+        for (let i = 0; i < 8; i++) {
+          data.push(res.data[i]);
+        }
+        this.zhuanlanData = data;
       });
+    },
+    rateBtn() {
+      let Data = this.Data;
+      let index = this.index++;
+      let init = 8;
+      let start = (index + 1) * init - init;
+      let end = (index + 1) * init;
+      if (end < Data.length) {
+        let spliceData = Data.slice(start, end);
+        this.zhuanlanData = spliceData;
+      } else {
+        this.index = 1;
+      }
     }
   },
   components: {
-    "zh-header": zhHeader
+    "zh-header": zhHeader,
+    "zh-card": zhUserCard
   }
 };
 </script>
@@ -71,6 +84,7 @@ export default {
 <style lang="less">
 .zh-zhuanlan-main {
   width: 100%;
+  background: #fff;
   .zh-zhuanlan-banner {
     position: relative;
     width: 100%;
@@ -147,60 +161,64 @@ export default {
       font-weight: 600;
       font-synthesis: style;
     }
-    .zh-cardlist {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      .zh-cardlist-item {
-        flex: 1;
-        text-align: center;
-        padding: 24px 18px;
-        margin: 0 8px 16px;
-        -webkit-box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
-        img {
-          display: inline-block;
-          height: 48px;
-          width: 48px;
-          margin-bottom: 16px;
-          background-color: antiquewhite;
-          border-radius: 50%;
-        }
-        .zh-cardItem-name {
-          font-weight: 600;
-          font-size: 17.4px;
-        }
-        .zh-cardItem-intro {
-          color: grey;
-          font-size: 14px;
-          line-height: 21px;
-          margin-top: 7px;
-          text-align: center;
-          word-break: break-all;
-          display: -webkit-box;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-        }
-        .zh-cardItem-mes {
-          color: grey;
-          font-size: 14px;
-          line-height: 21px;
-          margin-top: 7px;
-        }
-        .zh-greenbtn {
-          display: inline-block;
-          border: 1px solid #11a668;
-          color: #11a668;
-          line-height: 32px;
-          font-size: 14px;
-          padding: 0 16px;
-          margin-top: 7px;
-          border-radius: 4px;
-        }
-      }
+  }
+
+  .zh-zhuanlan-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 134px;
+    background: url("~@/assets/bg@2x.033e5b2d.png") repeat-x;
+    background-size: 20px 450px;
+    .zh-zhuanlan-footer-title {
+      border: solid #97ffd8;
+      border-width: 1px 0;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 14px;
+      padding: 26px 0;
+      text-align: center;
+      white-space: nowrap;
+      width: 345px;
+      margin: 0 auto;
+      margin-bottom: 30px;
+    }
+    .zh-zhuanlan-footer-list {
+      padding: 40px;
+      color: #888;
+      font-size: 12px;
     }
   }
+}
+
+.zh-rate-btn {
+  display: inline-block;
+  text-align: center;
+  line-height: 32px;
+  border: 1px solid #666;
+  color: #666;
+  font-size: 14px;
+  border-radius: 4px;
+  padding: 0 16px;
+  span {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    img {
+      display: inline-block;
+      height: 15px;
+      width: 15px;
+    }
+  }
+}
+.zh-gray-btn {
+  display: inline-block;
+  border: 1px solid #444;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #444;
+  height: 38px;
+  padding: 0 16px;
+  line-height: 36px;
+  font-size: 14px;
 }
 </style>
