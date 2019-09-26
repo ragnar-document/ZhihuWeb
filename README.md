@@ -4,6 +4,8 @@
 ```
 npm install
 ```
+### 如果没有基础
+可以看看入门https://github.com/ragnar-document/Web-QuickStart
 
 ### 项目说明
 
